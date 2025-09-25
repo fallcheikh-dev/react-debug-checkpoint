@@ -1,16 +1,12 @@
-import React, { useState } from "react";
-import Counter from "./Counter";
-import UserProfile from "./UserProfile";
-
+import React, { useState, useMemo } from "react";
 export default function App() {
-  const [user] = useState({ name: "Alice", age: 25 }); // OK but could causer re-renders si récrée
+  const [user] = useState({ name: "Alice", age: 25 });
+  const memoUser = useMemo(() => user, [user]); // si user est recréé depuis props, mieux: compute only when changes
 
   return (
-    <div>
-      <h1>Debugging Demo</h1>
+    <>
       <Counter />
-      {/* BUG: on oublie de passer une prop à UserProfile (simulate missing prop) */}
-      <UserProfile /> 
-    </div>
+      <UserProfile name={memoUser.name} age={memoUser.age} />
+    </>
   );
 }

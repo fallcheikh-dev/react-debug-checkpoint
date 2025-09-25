@@ -4,7 +4,7 @@ export default function Counter() {
   const [count, setCount] = useState(0);
 
   // BUG: mauvaise mise à jour d'état
-  const increment = () => setCount(count++); // ne fonctionne pas comme attendu
+ const increment = () => setCount(prev => prev + 1);
 
   return (
     <div>
